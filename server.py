@@ -12,11 +12,15 @@ from binance_mcp.tools import register_tools
 configure_logging()
 logger = logging.getLogger("binance-mcp-server")
 
-mcp = FastMCP("CL Binance MCP Server")
+mcp = FastMCP(
+    "MewCP Binance MCP Server",
+    # stateless_http=True,
+)
 register_tools(mcp)
 
 # Expose ASGI app for hosting platform's (e.g. Vercel) Python runtime.
-app = mcp.http_app(path="/mcp", transport="streamable-http")
+# Expose ASGI app for hosting platform's (e.g. Vercel) Python runtime.
+app = mcp.http_app(path="/mcp", transport="streamable-http", stateless_http=True)
 
 if __name__ == "__main__":
     logger.info("=" * 60)
